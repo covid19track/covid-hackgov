@@ -1,4 +1,4 @@
 # covid-hackgov-server
 
 # Running
-To run this project run `poetry run python covid_hackgov_server`
+To run this project run `poetry run hypercorn run:app`

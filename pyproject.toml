@@ -9,6 +9,7 @@ license = "MIT"
 python = "^3.8"
 logbook = "^1.5.3"
 quart = "^0.11.5"
+hypercorn = "^0.9.4"
 
 [tool.poetry.dev-dependencies]
 autopep8 = "^1.5.1"
