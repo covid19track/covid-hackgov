@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "covid-hackgov-server"
+name = "covid_hackgov_server"
 version = "0.1.0"
 description = "Backend for covidhack.gov submission"
 authors = ["Taxiarchis-Peter Gomesis", "Edward Pasenidis", "Anastasios Meletelidis"]
@@ -7,7 +7,8 @@ license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.8"
-flask = "^1.1.2"
+logbook = "^1.5.3"
+quart = "^0.11.5"
 
 [tool.poetry.dev-dependencies]
 autopep8 = "^1.5.1"
