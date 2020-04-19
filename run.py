@@ -1,7 +1,9 @@
 from quart import Quart, request, jsonify
 from covid_hackgov_server.blueprints import (
-    hello_api,
-    random_api
+    root,
+    knowledge_base,
+    auth,
+    science
 )
 import config
 import logbook
@@ -19,13 +21,15 @@ app.config.from_object(f"config.{config.MODE}")
 app.debug = app.config.get("DEBUG", False)
 
 if app.debug:
+    log.info("Running in debug mode")
     handler.level = logbook.DEBUG
     app.logger.level = logbook.DEBUG
-    log.debug("Running in debug mode")
 
 bps = {
-    hello_api: None,
-    random_api: None
+    root: None,
+    knowledge_base: None,
+    auth: None,
+    science: None
 }
 
 for bp, suffix in bps.items():
@@ -34,7 +38,7 @@ for bp, suffix in bps.items():
 
 @app.after_request
 async def app_after_request(resp):
-    """Handle CORS headers."""
+    """Handle CORS headers"""
     origin = request.headers.get("Origin", "*")
     resp.headers["Access-Control-Allow-Origin"] = origin
     resp.headers["Access-Control-Allow-Headers"] = (
@@ -56,8 +60,4 @@ async def app_after_request(resp):
 
 @app.errorhandler(500)
 async def handle_500(err):
-    return (
-        jsonify({"error": True, "message": repr(
-            err), "internal_server_error": True}),
-        500,
-    )
+    return (jsonify({"error": True, "message": repr(err), "internal_server_error": True}), 500)
