@@ -1,5 +1,8 @@
 from quart import Quart, request, jsonify
-from covid_hackgov_server.blueprints import hello_api
+from covid_hackgov_server.blueprints import (
+    hello_api,
+    random_api
+)
 import config
 import logbook
 import sys
@@ -21,7 +24,8 @@ if app.debug:
     log.debug("Running in debug mode")
 
 bps = {
-    hello_api: None
+    hello_api: None,
+    random_api: None
 }
 
 for bp, suffix in bps.items():
@@ -49,9 +53,11 @@ async def app_after_request(resp):
 
     return resp
 
+
 @app.errorhandler(500)
 async def handle_500(err):
     return (
-        jsonify({"error": True, "message": repr(err), "internal_server_error": True}),
+        jsonify({"error": True, "message": repr(
+            err), "internal_server_error": True}),
         500,
     )
