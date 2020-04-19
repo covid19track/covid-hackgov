@@ -1,20 +1,17 @@
 from quart import Blueprint, jsonify, request
 import random
 from ..auth import token_check
-from ..schemas import validate, TOKEN_SCHEMA
 from ..errors import Unauthorized
 
 bp = Blueprint("knowledge_base", __name__)
 
 
-@bp.route("/random")
-async def knowledge():
-    data = await validate(await request.get_json(), TOKEN_SCHEMA)
-
-    await token_check(data.get("token"))
+@bp.route("/randomFact")
+async def random_fact():
+    await token_check(request.headers.get("Authorization"))
 
     return jsonify({
-        "knowledge": random.choice([
+        "fact": random.choice([
             "Σύμφωνα με το Κινέζικο κράτος, η διασπορά του COVID-19 ξεκίνησε τον Δεκέμβριο του 2019",
             "Ο πληθυσμός της Ουχάν είναι ίσος με αυτόν της Ελλάδας!",
             "Υπάρχουν 210 χώρες που έχουν δηλώσει για ασθενείς, με σύνολο 2.5 εκατομμυρίων κρουσμάτων",

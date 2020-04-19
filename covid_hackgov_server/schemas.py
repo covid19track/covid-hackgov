@@ -4,11 +4,6 @@ import logbook
 
 log = logbook.Logger(__name__)
 
-TOKEN_SCHEMA = {
-    'token': {'type': 'string'}
-}
-
-
 async def validate(req, schema):
     validator = cerberus.Validator(schema)
 

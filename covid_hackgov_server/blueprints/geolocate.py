@@ -1,6 +1,5 @@
 from quart import Blueprint, jsonify, request, jsonify
 from ..auth import token_check
-from ..schemas import validate, TOKEN_SCHEMA
 import aiohttp
 import inspect
 
@@ -9,9 +8,7 @@ bp = Blueprint("geolocate", __name__)
 
 @bp.route("/geolocate")
 async def geolocate():
-    data = await validate(await request.get_json(), TOKEN_SCHEMA)
-
-    await token_check(data.get("token"))
+    await token_check(request.headers.get("Authorization"))
 
     async with aiohttp.ClientSession() as cs:
         ip = request.remote_addr
