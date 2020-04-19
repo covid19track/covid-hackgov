@@ -8,6 +8,7 @@ from covid_hackgov_server.blueprints import (
 import config
 import logbook
 import sys
+from covid_hackgov_server.errors import CovidHackgovError
 
 handler = logbook.StreamHandler(sys.stdout, level=logbook.INFO)
 handler.push_application()
@@ -58,6 +59,27 @@ async def app_after_request(resp):
     return resp
 
 
+@app.errorhandler(CovidHackgovError)
+async def handle_covid_hackgov_server_err(err):
+    try:
+        ejson = err.json
+    except IndexError:
+        ejson = {}
+
+    try:
+        ejson["code"] = err.error_code
+    except AttributeError:
+        pass
+
+    log.warning("error: {} {!r}", err.status_code, err.message)
+
+    return jsonify({
+        "error": True,
+        "status": err.status_code,
+        "message": err.message, **ejson
+    }), err.status_code
+
+
 @app.errorhandler(500)
 async def handle_500(err):
-    return (jsonify({"error": True, "message": repr(err), "internal_server_error": True}), 500)
+    return jsonify({"error": True, "message": repr(err), "internal_server_error": True}), 500

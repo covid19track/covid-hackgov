@@ -3,9 +3,19 @@ from quart import Blueprint, jsonify, request, current_app as app
 bp = Blueprint("root", __name__)
 
 
-@bp.route("/endpoints")
+@bp.route("/endpoints", methods=["GET"])
 async def endpoints():
-    return jsonify({"endpoints": {"endpoints": "/v1/endpoints", "register": "/v1/register", "random": "/v1/random"}})
+    return jsonify({
+        "endpoints": {
+            "GET": {
+                "endpoints": "/v1/endpoints",
+                "register": "/v1/register"
+            },
+            "POST": {
+                "random": "/v1/random"
+            }
+        }
+    })
 
 
 @bp.route("/.well-known/nodeinfo")
@@ -68,4 +78,6 @@ async def nodeinfo_21():
     nodeinfo = fetch_nodeinfo()
 
     nodeinfo["software"]["repository"] = "https://github.com/covid19track/covid-hackgov-server"
+    nodeinfo["version"] = "2.1"
+
     return jsonify(nodeinfo)
