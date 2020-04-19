@@ -9,9 +9,8 @@ async def endpoints():
         "endpoints": {
             "GET": {
                 "Endpoints": "/v1/endpoints",
-                "Register": "/v1/register",
                 "Generate API Key": "/v1/genAPIKey",
-                "Validate API Key": "/v1/validateKey",
+                "Validate API Key": "/v1/validateAPIKey",
                 "Geolocate": "/v1/geolocate",
                 "Random Fact": "/v1/randomFact"
             }
