@@ -1,21 +1,17 @@
 from quart import Blueprint, jsonify, request
 import random
 from ..auth import token_check
-from ..schemas import validate
+from ..schemas import validate, TOKEN_SCHEMA
 from ..errors import Unauthorized
 
 bp = Blueprint("knowledge_base", __name__)
 
-KNOWLEDGE_SCHEMA = {
-    'token': {'type': 'string'}
-}
 
-
-@bp.route("/random", methods=["GET"])
+@bp.route("/random")
 async def knowledge():
-    data = validate(await request.get_json(), KNOWLEDGE_SCHEMA)
+    data = await validate(await request.get_json(), TOKEN_SCHEMA)
 
-    token_check(data["token"])
+    await token_check(data.get("token"))
 
     return jsonify({
         "knowledge": random.choice([

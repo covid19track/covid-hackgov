@@ -7,7 +7,7 @@ import secrets
 bp = Blueprint('auth', __name__)
 
 
-@bp.route('/register', methods=["POST"])
+@bp.route('/register')
 async def index():
     if not app.config.get("REGISTRATIONS", False):
         return jsonify({"message": "Registrations are disabled."}), 400

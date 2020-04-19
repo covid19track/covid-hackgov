@@ -3,7 +3,8 @@ from covid_hackgov_server.blueprints import (
     root,
     knowledge_base,
     auth,
-    science
+    science,
+    geolocate
 )
 import config
 import logbook
@@ -30,7 +31,8 @@ bps = {
     root: None,
     knowledge_base: None,
     auth: None,
-    science: None
+    science: None,
+    geolocate: None
 }
 
 for bp, suffix in bps.items():

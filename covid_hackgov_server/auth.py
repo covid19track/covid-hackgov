@@ -8,7 +8,9 @@ from quart import current_app as app
 log = logbook.Logger(__name__)
 
 
-def token_check(token):
+async def token_check(token):
+    if token is None:
+        raise Unauthorized("Invalid token")
     try:
         if token.split(".")[0] != "hackgov":
             raise Unauthorized("Invalid token")

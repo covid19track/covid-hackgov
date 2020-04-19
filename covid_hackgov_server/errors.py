@@ -6,13 +6,16 @@ class CovidHackgovError(Exception):
     @property
     def message(self):
         try:
-            return getattr(self, "args")[0]
+            return self.args[0]
         except IndexError:
             return repr(self)
 
     @property
     def json(self):
-        return getattr(self, "args")[1]
+        try:
+            return self.args[1]
+        except IndexError:
+            return {}
 
 
 class BadRequest(CovidHackgovError):
