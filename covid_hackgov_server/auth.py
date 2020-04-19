@@ -18,6 +18,6 @@ async def token_check(token):
         raise Unauthorized("Invalid token")
 
     try:
-        itsdangerous.TimestampSigner(app.config["SECRET_KEY"]).unsign(token)
+        itsdangerous.TimestampSigner(app.config["SECRET_KEY"]).unsign(token, max_age=60*60*24)
     except itsdangerous.BadSignature:
         raise Forbidden("Invalid token")
