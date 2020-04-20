@@ -88,4 +88,4 @@ async def handle_500(err):
 
 @app.errorhandler(404) 
 def page_not_found(err): 
-    return redirect(url_for("/not_found.html")
+    return redirect(url_for("/not_found.html"))
