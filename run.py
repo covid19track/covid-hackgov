@@ -1,4 +1,4 @@
-from quart import Quart, request, jsonify
+from quart import Quart, request, jsonify, redirect, url_for
 from covid_hackgov_server.blueprints import (
     root,
     knowledge_base,
@@ -85,3 +85,7 @@ async def handle_covid_hackgov_server_err(err):
 @app.errorhandler(500)
 async def handle_500(err):
     return jsonify({"error": True, "message": repr(err), "internal_server_error": True}), 500
+
+@app.errorhandler(404) 
+def page_not_found(err): 
+    return redirect(url_for("/not_found.html")

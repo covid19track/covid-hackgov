@@ -10,6 +10,7 @@ bp = Blueprint('auth', __name__)
 @bp.route("/validateAPIKey")
 async def validate_token():
     await token_check(request.headers.get("Authorization"))
+    return "", 204
 
 @bp.route('/genAPIKey')
 async def index():
