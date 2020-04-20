@@ -87,5 +87,5 @@ async def handle_500(err):
     return jsonify({"error": True, "message": repr(err), "internal_server_error": True}), 500
 
 @app.errorhandler(404) 
-def page_not_found(err): 
-    return render_template("not_found.html")
+async def page_not_found(err): 
+    return await render_template("not_found.html")
