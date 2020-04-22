@@ -12,7 +12,12 @@ async def endpoints():
                 "Generate API Key": "/v1/genAPIKey",
                 "Validate API Key": "/v1/validateAPIKey",
                 "Geolocate": "/v1/geolocate",
-                "Random Fact": "/v1/randomFact"
+                "Random Fact": "/v1/randomFact",
+                "COVID Country Stats": "/v1/stats?country=<country_name>",
+                "COVID Country Stats Increase": "/v1/stats/daily?country=<country_name>"
+            },
+            "POST": {
+                "Science": "/v1/science"
             }
         }
     })

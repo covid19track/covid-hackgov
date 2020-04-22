@@ -4,12 +4,14 @@ from covid_hackgov_server.blueprints import (
     knowledge_base,
     auth,
     science,
-    geolocate
+    geolocate,
+    stats
 )
 import config
 import logbook
 import sys
 from covid_hackgov_server.errors import CovidHackgovError
+import asyncpg
 
 handler = logbook.StreamHandler(sys.stdout, level=logbook.INFO)
 handler.push_application()
@@ -32,12 +34,17 @@ bps = {
     knowledge_base: None,
     auth: None,
     science: None,
-    geolocate: None
+    geolocate: None,
+    stats: "stats"
 }
 
 for bp, suffix in bps.items():
     app.register_blueprint(bp.bp, url_prefix=f"/v1/{suffix or ''}")
 
+@app.before_serving
+async def app_before_serving():
+    log.info("Opening DB")
+    app.db = await asyncpg.create_pool(**app.config["POSTGRES"])
 
 @app.after_request
 async def app_after_request(resp):
