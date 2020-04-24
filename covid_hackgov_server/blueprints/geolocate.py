@@ -25,7 +25,7 @@ async def geolocate():
             data = await r.json()
             country = data.get("country")
 
-            if country is None:
+            if not country:
                 raise BadRequest(data.get("message"))
 
             return jsonify({"country": country})
