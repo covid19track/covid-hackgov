@@ -22,7 +22,7 @@ log = logbook.Logger("covid_hackgov_server.boot")
 logbook.compat.redirect_logging()
 
 app = Quart(__name__)
-cors(app, allow_origin="*")
+app = cors(app, allow_origin="*")
 app.config.from_object(f"config.{config.MODE}")
 app.debug = app.config.get("DEBUG", False)
 
