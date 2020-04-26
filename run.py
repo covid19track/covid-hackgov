@@ -49,8 +49,7 @@ async def app_before_serving():
 @app.after_request
 async def app_after_request(resp):
     """Handle CORS headers"""
-    origin = request.headers.get("Origin", "*")
-    resp.headers["Access-Control-Allow-Origin"] = origin
+    resp.headers["Access-Control-Allow-Origin"] = "*"
     resp.headers["Access-Control-Allow-Headers"] = (
         "*, X-Super-Properties, "
         "X-Fingerprint, "
@@ -62,8 +61,7 @@ async def app_after_request(resp):
         "Origin, "
         "If-None-Match"
     )
-    resp.headers["Access-Control-Allow-Methods"] = resp.headers.get(
-        "allow", "*")
+    resp.headers["Access-Control-Allow-Methods"] = "*"
 
     return resp
 
