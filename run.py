@@ -40,7 +40,7 @@ bps = {
 }
 
 for bp, suffix in bps.items():
-    app.register_blueprint(bp.bp, url_prefix=f"/v1/{suffix or ''}")
+    app.register_blueprint(cors(bp.bp, allow_origin="*"), url_prefix=f"/v1/{suffix or ''}")
 
 @app.before_serving
 async def app_before_serving():
