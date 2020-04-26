@@ -22,7 +22,6 @@ log = logbook.Logger("covid_hackgov_server.boot")
 logbook.compat.redirect_logging()
 
 app = Quart(__name__)
-app = cors(app, allow_origin="*")
 app.config.from_object(f"config.{config.MODE}")
 app.debug = app.config.get("DEBUG", False)
 
@@ -77,3 +76,5 @@ async def handle_500(err):
 @app.errorhandler(404) 
 async def page_not_found(err): 
     return redirect("/not_found.html")
+
+app = cors(app, allow_origin="*")
