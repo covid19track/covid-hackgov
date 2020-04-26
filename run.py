@@ -12,6 +12,7 @@ import logbook
 import sys
 from covid_hackgov_server.errors import CovidHackgovError
 import asyncpg
+from quart_cors import cors
 
 handler = logbook.StreamHandler(sys.stdout, level=logbook.INFO)
 handler.push_application()
@@ -21,6 +22,7 @@ log = logbook.Logger("covid_hackgov_server.boot")
 logbook.compat.redirect_logging()
 
 app = Quart(__name__)
+cors(app, allow_origin="*")
 app.config.from_object(f"config.{config.MODE}")
 app.debug = app.config.get("DEBUG", False)
 
@@ -45,25 +47,6 @@ for bp, suffix in bps.items():
 async def app_before_serving():
     log.info("Opening DB")
     app.db = await asyncpg.create_pool(**app.config["POSTGRES"])
-
-@app.after_request
-async def app_after_request(resp):
-    """Handle CORS headers"""
-    resp.headers["Access-Control-Allow-Origin"] = "*"
-    resp.headers["Access-Control-Allow-Headers"] = (
-        "*, X-Super-Properties, "
-        "X-Fingerprint, "
-        "X-Context-Properties, "
-        "X-Failed-Requests, "
-        "X-Debug-Options, "
-        "Content-Type, "
-        "Authorization, "
-        "Origin, "
-        "If-None-Match"
-    )
-    resp.headers["Access-Control-Allow-Methods"] = "*"
-
-    return resp
 
 
 @app.errorhandler(CovidHackgovError)

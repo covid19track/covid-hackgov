@@ -380,6 +380,17 @@ dotenv = ["python-dotenv"]
 
 [[package]]
 category = "main"
+description = "A Quart extension to provide Cross Origin Resource Sharing, access control, support."
+name = "quart-cors"
+optional = false
+python-versions = ">=3.7.0"
+version = "0.3.0"
+
+[package.dependencies]
+Quart = ">=0.11.1"
+
+[[package]]
+category = "main"
 description = "Python 2 and 3 compatibility utilities"
 name = "six"
 optional = false
@@ -455,7 +466,7 @@ idna = ">=2.0"
 multidict = ">=4.0"
 
 [metadata]
-content-hash = "78706a59c548543614be19dce596f7b2b984a08ab8f7465c320b1fb1b4ce3888"
+content-hash = "117b347d7748b050e5e3432afeee40132baa263c370dc96ebf6e2bdda79291e8"
 python-versions = "^3.7"
 
 [metadata.files]
@@ -725,6 +736,10 @@ pytz = [
 quart = [
     {file = "Quart-0.11.5-py3-none-any.whl", hash = "sha256:187427d1a2d7fed20dcb825dddbe20fd971efd7ec413639f95d2e28ff59a0cb1"},
     {file = "Quart-0.11.5.tar.gz", hash = "sha256:bd93650fa856dcfbc3890952ab3ca53f7755ab506d453a209db63713eceeceda"},
+]
+quart-cors = [
+    {file = "Quart-CORS-0.3.0.tar.gz", hash = "sha256:c08bdb326219b6c186d19ed6a97a7fd02de8fe36c7856af889494c69b525c53c"},
+    {file = "Quart_CORS-0.3.0-py3-none-any.whl", hash = "sha256:020a17d504264db86cada3c1335ef174af28b33f57cee321ddc46d69c33d5c8e"},
 ]
 six = [
     {file = "six-1.14.0-py2.py3-none-any.whl", hash = "sha256:8f3cd2e254d8f793e7f3d6d9df77b92252b52637291d0f0da013c76ea2724b6c"},
